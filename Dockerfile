@@ -1,12 +1,12 @@
-FROM alpine:3.7
+FROM alpine:3.11.3
 
 ENV DOCKER_CHANNEL=stable \
-    DOCKER_VERSION=17.12.1-ce \
-    DOCKER_COMPOSE_VERSION=1.19.0 \
-    DOCKER_SQUASH=0.2.0
+    DOCKER_VERSION=19.03.5 \
+    DOCKER_COMPOSE_VERSION=1.25.2
 
 # Install Docker, Docker Compose, Docker Squash
 RUN apk --update --no-cache add \
+        docker \       
         bash \
         curl \
         device-mapper \
@@ -14,13 +14,16 @@ RUN apk --update --no-cache add \
         iptables \
         util-linux \
         ca-certificates \
+        py-pip \
+        python-dev \
+        libffi-dev \
+        openssl-dev \
+        gcc \
+        libc-dev \
+        make \
         && \
-    apk upgrade && \
-    curl -fL "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/x86_64/docker-${DOCKER_VERSION}.tgz" | tar zx && \
-    mv /docker/* /bin/ && chmod +x /bin/docker* && \
-    pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \
-    curl -fL "https://github.com/jwilder/docker-squash/releases/download/v${DOCKER_SQUASH}/docker-squash-linux-amd64-v${DOCKER_SQUASH}.tar.gz" | tar zx && \
-    mv /docker-squash* /bin/ && chmod +x /bin/docker-squash* && \
+    apk upgrade && \        
+    pip install docker-compose==${DOCKER_COMPOSE_VERSION} && \    
     rm -rf /var/cache/apk/* && \
     rm -rf /root/.cache
 

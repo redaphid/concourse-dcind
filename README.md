@@ -2,9 +2,11 @@
 
 Optimized for use with [Concourse CI](http://concourse.ci/).
 
-The image is Alpine based, and includes Docker, Docker Compose, and Docker Squash, as well as Bash.
+The image is Alpine based, and includes Docker, and Docker Compose, as well as Bash.
 
-Image published to Docker Hub: [karlkfi/concourse-dcind](https://hub.docker.com/r/karlkfi/concourse-dcind/).
+This image is a modified version of [karlkfi/concourse-dcind](https://hub.docker.com/r/karlkfi/concourse-dcind/).
+
+Image published to Docker Hub: [redaphid/concourse-dcind](https://hub.docker.com/r/redaphid/concourse-dcind/).
 
 Inspired by [meAmidos/dcind](https://github.com/meAmidos/dcind),  [concourse/docker-image-resource](https://github.com/concourse/docker-image-resource/blob/master/assets/common.sh), and [mesosphere/mesos-slave-dind](https://github.com/mesosphere/mesos-slave-dind).
 
@@ -22,12 +24,12 @@ Unlike meAmidos/dcind, this image...
 ## Build
 
 ```
-docker build -t karlkfi/concourse-dcind .
+docker build -t redaphid/concourse-dcind .
 ```
 
 ## Example
 
-Here is an example of a Concourse [job](http://concourse.ci/concepts.html) that uses ```karlkfi/concourse-dcind``` image to run a bunch of containers in a task, and then runs the integration test suite. You can find a full version of this example in the [```example```](example) directory.
+Here is an example of a Concourse [job](http://concourse.ci/concepts.html) that uses ```redaphid/concourse-dcind``` image to run a bunch of containers in a task, and then runs the integration test suite. You can find a full version of this example in the [```example```](example) directory.
 
 ```yaml
 jobs:
@@ -46,7 +48,7 @@ jobs:
       image_resource:
         type: docker-image
         source:
-          repository: karlkfi/concourse-dcind
+          repository: redaphid/concourse-dcind
       inputs:
       - name: code
       run:
